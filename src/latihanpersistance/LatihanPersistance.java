@@ -76,6 +76,7 @@ public class LatihanPersistance {
 //                    }
 //                    break;
 //                default:
+//                    System.out.println(employeeController.getNewId());
 //                    loop = false;
 //                    break;
 //            }

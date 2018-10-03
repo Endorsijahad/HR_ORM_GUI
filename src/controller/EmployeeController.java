@@ -49,4 +49,9 @@ public class EmployeeController {
         Employee employee = new Employee(new Integer(employeeId), firstName, lastName, email, phoneNumber, new Date(hireDate), new BigDecimal(salary), new BigDecimal(commissionPct), department, manager, job);
         return iDAO.saveOrUpdate(employee);
     }
+    
+    public Object getNewId(){
+        Employee employee =  (Employee) iDAO.getLastId();
+        return employee.getEmployeeId() + 1;
+    }
 }

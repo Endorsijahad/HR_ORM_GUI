@@ -25,7 +25,7 @@ public class FunctionDAO {
     /**
      *
      * @param CRUD - 0 for Save/Update, 1 for delete, 2 for getById, 3 for
-     * search, selain 0-3 for getAll
+     * search, 4 for getLastId, selain 0-4 for getAll
      * @param type
      * @param category
      * @param key
@@ -69,6 +69,9 @@ public class FunctionDAO {
                 return session.createCriteria(type)
                         .add(Restrictions.eq(category, key))
                         .list();
+            case 4: 
+                return session.createQuery("FROM " + type
+                        .getSimpleName() + " ORDER BY 1 DESC").list().get(0);
             default:
                 return session.createQuery("FROM " + type
                         .getSimpleName() + " ORDER BY 1").list();
