@@ -53,5 +53,10 @@ public class GeneralDAO implements InterfaceDAO{
     public Object getById(Object id) {
         return gdao.execute(2, null, type, type.getSimpleName().toLowerCase() + "Id", id);
     }
+    
+    @Override
+    public Object getLastId(){
+        return gdao.execute(4, null, type, null, null);
+    }
 
 }
