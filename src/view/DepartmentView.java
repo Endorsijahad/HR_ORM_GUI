@@ -14,7 +14,6 @@ import entities.Employee;
 import entities.Location;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,13 +28,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
 //    private final GeneralDAO gdao;
     private final DepartmentController controller;
-    private final EmployeeController empController;
-    private final LocationController locController;
+    
     private String[] cmbItem = {"departmentId", "departmentName", "managerId", "locationId"};
     
-    private Vector listManager;
-    private Vector listLocation;
-    private Vector listDepartment;
+    
     /**
      * Creates new form DepartmentView
      */
@@ -44,8 +40,10 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         //this.gdao = new GeneralDAO(HibernateUtil.getSessionFactory(), Department.class);
         controller = new DepartmentController(sessionFactory);
        // Object ambilSemua = controller.getAll();
-       empController = new EmployeeController(sessionFactory);
-       locController = new LocationController(sessionFactory);
+       
+       controller.loadCmbDepartmentName(cmbDepartmentName);
+       controller.loadCmbLocationId(cmbLocationId);
+       controller.loadCmbManagerId(cmbManagerId);
     }
 
     /**
@@ -339,32 +337,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         reset();
     }
     
-     public void loadCmbDepartmentName(JComboBox cmb){
-//        listDepartment = new Vector();
-        List<Object> objects = controller.getAll();
-        for (Object object : objects) {
-            Department department = (Department) object;
-            cmb.addItem(department.getDepartmentName());
-        }
-    }
-    
-    public  void loadCmbManagerId(JComboBox cmb){
-//        listManager = new Vector();
-        List<Object> objects = (List<Object>) empController.getAll();
-        for (Object object : objects) {
-            Employee employee = (Employee) object;
-            cmb.addItem(employee.getEmployeeId() + " - " + employee.getLastName());
-        }
-    }
-    
-    public  void loadCmbLocationId(JComboBox cmb){
-//        listLocation = new Vector();
-//        List<Object> objects = locController.getLocationIdAndCity();
-//        for (Object object : objects) {
-//            Location location = (Location) object;
-//            cmb.addItem(location.getLocationId() + " - " + location.getCity());
-//        }
-    }
+     
      
     /**
      * Menyalakan tombol delete dan mematikan textfield Department Id
