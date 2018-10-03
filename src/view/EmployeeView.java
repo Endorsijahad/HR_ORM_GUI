@@ -5,12 +5,12 @@
  */
 package view;
 
-
 import controller.EmployeeController;
 import entities.Employee;
-import java.util.ArrayList;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -23,17 +23,19 @@ import org.hibernate.SessionFactory;
  */
 public class EmployeeView extends javax.swing.JInternalFrame {
 
-    private TableRowSorter<TableModel>  rowSorter;
+    private TableRowSorter<TableModel> rowSorter;
     private Object listCmb;
     private final EmployeeController controller;
+
     /**
      * Creates new form EmployeeViewSimple
+     *
      * @param sessionFactory
      */
     public EmployeeView(SessionFactory sessionFactory) {
         initComponents();
         controller = new EmployeeController(sessionFactory);
-        bindingEmployee((List<Employee>) controller.getAll());
+        reset();
     }
 
     /**
@@ -85,6 +87,8 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setPreferredSize(new java.awt.Dimension(700, 650));
+
+        cmbCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job", "Salary", "Commission", "Manager", "Department" }));
 
         txtCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,41 +364,84 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
+        reset();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
         // TODO add your handling code here:
-       
-        
+
+        reset();
     }//GEN-LAST:event_btnDropActionPerformed
 
     private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_tblEmployeeMouseClicked
 
     private void btnFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindActionPerformed
-
+        String text = txtCari.getText();
+        if (text.trim().length() == 0) {
+            rowSorter.setRowFilter(null);
+        } else {
+            rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
+        }
     }//GEN-LAST:event_btnFindActionPerformed
 
     private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
-        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String text = txtCari.getText();
+            if (text.trim().length() == 0) {
+                rowSorter.setRowFilter(null);
+            } else {
+                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text, cmbCategory.getSelectedIndex() + 1));
+            }
+        }
     }//GEN-LAST:event_txtCariKeyReleased
 
     private void txtCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCariActionPerformed
-    
+
+    private void getCmbJob(){
+        
+    }
+    private void reset() {
+        txtEmployeeId.setEnabled(true);
+        txtEmployeeId.setEditable(false);
+        txtEmployeeId.setText(controller.getNewId() + "");
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtEmail.setText("");
+        txtPhoneNumber.setText("");
+        dpHireDate.setDate(null);
+        cmbJobId.setSelectedItem(null);
+        txtSalary.setText("");
+        txtCommissionPct.setText("");
+        cmbManager.setSelectedItem(null);
+        cmbDepartment.setSelectedItem(null);
+        bindingEmployee((List<Employee>) controller.getAll());
+        tblEmployee.setRowSorter(rowSorter);
+        btnDrop.setEnabled(false);
+    }
+
     /**
      * Digunakan untuk binding data terbaru
-     * @param employees 
+     *
+     * @param employees
      */
     private void bindingEmployee(List<Employee> employees) {
-       String[] header = {"No", "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job",
+        String[] header = {"No", "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job",
             "Salary", "Commission PCT", "Manager", "Department"};
         String[][] data = new String[employees.size()][header.length];
         for (int i = 0; i < employees.size(); i++) {
+            String managerId = "", managerName = "", departmentName = "";
+            if (employees.get(i).getManagerId() != null) {
+                managerId = employees.get(i).getManagerId().getEmployeeId().toString();
+                managerName = employees.get(i).getManagerId().getLastName();
+            }
+            if (employees.get(i).getDepartmentId() != null) {
+                departmentName = employees.get(i).getDepartmentId().getDepartmentName();
+            }
             data[i][0] = (i + 1) + "";
             data[i][1] = employees.get(i).getEmployeeId() + "";
             data[i][2] = employees.get(i).getFirstName();
@@ -402,11 +449,11 @@ public class EmployeeView extends javax.swing.JInternalFrame {
             data[i][4] = employees.get(i).getEmail();
             data[i][5] = employees.get(i).getPhoneNumber() + "";
             data[i][6] = employees.get(i).getHireDate().toString();
-            data[i][7] = employees.get(i).getJobId().getJobId();
+            data[i][7] = employees.get(i).getJobId().getJobTitle();
             data[i][8] = employees.get(i).getSalary() + "";
             data[i][9] = employees.get(i).getCommissionPct() + "";
-            data[i][10] = employees.get(i).getManagerId().getEmployeeId() + "-" + employees.get(i).getManagerId().getLastName();
-            data[i][11] = employees.get(i).getDepartmentId().getDepartmentName();
+            data[i][10] = managerId + "-" + managerName;
+            data[i][11] = departmentName;
 
         }
         tblEmployee.setModel(new DefaultTableModel(data, header));
