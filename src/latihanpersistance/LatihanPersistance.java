@@ -28,74 +28,58 @@ public class LatihanPersistance {
 //            System.out.println(region.getRegionId() + " - " + region.getRegionName());
 //        }
 
-        EmployeeController employeeController = new EmployeeController(HibernateUtil.getSessionFactory());
-        Scanner scanner = new Scanner(System.in);
-        boolean loop = true;
-        do {
-            cls();
-            System.out.println("1. Save or Update");
-            System.out.println("2. Search");
-            System.out.println("3. Get by Id");
-            System.out.println("4. Get All");
-            System.out.print("Pilihan menu: ");
-            int menu = scanner.nextInt();
-            switch (menu) {
-                case 1:
-                    System.out.println(employeeController.saveOrUpdate("215", "Pertama", "Akhir", "PAKHIR",
-                            "8484847", "06/06/2018", "5500", ".5", "60", "103", "IT_PROG"));
-                    break;
-                case 2:
-                    System.out.println("Employee ID - First Name - Last Name");
-                    for (Object object : (List<Employee>) employeeController.search("lastName", "King")) {
-                        Employee employee2 = (Employee) object;
-                        System.out.println(employee2.getEmployeeId() + " - " + employee2.getFirstName() + " " + employee2.getLastName());
-                    }
-                    break;
-                case 3:
-                    Object object3 = (Employee) employeeController.getById("100");
-                    Employee employee3 = (Employee) object3;
-                    System.out.println(employee3.getFirstName() + " " + employee3.getLastName());
-                    break;
-                case 4:
-                    System.out.println("Employee ID - First Name - Last Name - Email - Phone Number - Hire Date - Salary - Commission PCT - Job - Manager - Department");
-                    for (Object object : (List<Employee>) employeeController.getAll()) {
-                        Employee employee = (Employee) object;
-                        String managerName = "", departmentName = "";
-                        if (employee.getManagerId() == null) {
-                            managerName = "null";
-                        } else {
-                            managerName = employee.getManagerId().getLastName();
-                        }
-                        if (employee.getDepartmentId() == null) {
-                            departmentName = "null";
-                        } else {
-                            departmentName = employee.getDepartmentId().getDepartmentName();
-                        }
-                        System.out.println(employee.getEmployeeId() + " - " + employee.getFirstName() + " - " + employee.getLastName() + " - " + employee.getEmail()
-                                + " - " + employee.getPhoneNumber() + " - " + employee.getHireDate() + " - " + employee.getSalary() + " - " + employee.getCommissionPct()
-                                + " - " + employee.getJobId().getJobTitle() + " - " + managerName + " - " + departmentName);
-                    }
-                    break;
-                default:
-                    loop = false;
-                    break;
-            }
-        } while (loop);
-
-    }
-
-    public static void cls() {
-        try {
-            final String os = System.getProperty("os.name");
-
-            if (os.contains("Windows")) {
-                Runtime.getRuntime().exec("cls");
-            } else {
-                Runtime.getRuntime().exec("clear");
-            }
-        } catch (final Exception e) {
-            System.out.print(e);
-        }
+//        EmployeeController employeeController = new EmployeeController(HibernateUtil.getSessionFactory());
+//        Scanner scanner = new Scanner(System.in);
+//        boolean loop = true;
+//        do {
+//            System.out.println("1. Save or Update");
+//            System.out.println("2. Search");
+//            System.out.println("3. Get by Id");
+//            System.out.println("4. Get All");
+//            System.out.print("Pilihan menu: ");
+//            int menu = scanner.nextInt();
+//            switch (menu) {
+//                case 1:
+//                    System.out.println(employeeController.saveOrUpdate("215", "Pertama", "Akhir", "PAKHIR",
+//                            "8484847", "06/06/2018", "5500", ".5", "60", "103", "IT_PROG"));
+//                    break;
+//                case 2:
+//                    System.out.println("Employee ID - First Name - Last Name");
+//                    for (Object object : (List<Employee>) employeeController.search("lastName", "King")) {
+//                        Employee employee2 = (Employee) object;
+//                        System.out.println(employee2.getEmployeeId() + " - " + employee2.getFirstName() + " " + employee2.getLastName());
+//                    }
+//                    break;
+//                case 3:
+//                    Object object3 = (Employee) employeeController.getById("100");
+//                    Employee employee3 = (Employee) object3;
+//                    System.out.println(employee3.getFirstName() + " " + employee3.getLastName());
+//                    break;
+//                case 4:
+//                    System.out.println("Employee ID - First Name - Last Name - Email - Phone Number - Hire Date - Salary - Commission PCT - Job - Manager - Department");
+//                    for (Object object : (List<Employee>) employeeController.getAll()) {
+//                        Employee employee = (Employee) object;
+//                        String managerName = "", departmentName = "";
+//                        if (employee.getManagerId() == null) {
+//                            managerName = "null";
+//                        } else {
+//                            managerName = employee.getManagerId().getLastName();
+//                        }
+//                        if (employee.getDepartmentId() == null) {
+//                            departmentName = "null";
+//                        } else {
+//                            departmentName = employee.getDepartmentId().getDepartmentName();
+//                        }
+//                        System.out.println(employee.getEmployeeId() + " - " + employee.getFirstName() + " - " + employee.getLastName() + " - " + employee.getEmail()
+//                                + " - " + employee.getPhoneNumber() + " - " + employee.getHireDate() + " - " + employee.getSalary() + " - " + employee.getCommissionPct()
+//                                + " - " + employee.getJobId().getJobTitle() + " - " + managerName + " - " + departmentName);
+//                    }
+//                    break;
+//                default:
+//                    loop = false;
+//                    break;
+//            }
+//        } while (loop);
 
     }
 }
