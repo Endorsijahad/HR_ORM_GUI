@@ -51,6 +51,8 @@ public class Location implements Serializable {
     private String city;
     @Column(name = "STATE_PROVINCE")
     private String stateProvince;
+    @OneToMany(mappedBy = "countryId", fetch = FetchType.LAZY)
+    private List<Location> locationList;
     @JoinColumn(name = "COUNTRY_ID", referencedColumnName = "COUNTRY_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Country countryId;
@@ -118,6 +120,16 @@ public class Location implements Serializable {
         this.stateProvince = stateProvince;
     }
 
+     @XmlTransient
+    public List<Location> getLocationList() {
+        return locationList;
+    }
+
+    public void setLocationList(List<Location> locationList) {
+        this.locationList = locationList;
+    }
+
+    
     public Country getCountryId() {
         return countryId;
     }

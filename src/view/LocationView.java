@@ -21,12 +21,13 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form LocationView
+     * @param sessionFactory
      */
     public LocationView(SessionFactory sessionFactory) {
         initComponents();
 //        this.gDAO = new GeneralDAO(HibernateUtil.getSessionFactory(), Region.class);
         locationController = new LocationController(sessionFactory);
-//        bindingLocation(locationController.vl );
+        bindingLocation((List<Object>) locationController.getAll());
         reset();
     }
 
@@ -53,7 +54,7 @@ public class LocationView extends javax.swing.JInternalFrame {
 
     }
 
-    private void bindingLocation(List<Location> location) {
+    private void bindingLocation(List<Object> location) {
         String[] header = {"No", "Location ID", "Street Address", "Postal_Code", "City", "State Province", "Country Name"};
         String[][] data = new String[location.size()][header.length];
         for (int i = 0; i < location.size(); i++) {
@@ -391,4 +392,5 @@ public class LocationView extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txtStreetAddress;
     // End of variables declaration//GEN-END:variables
 
+    
 }
