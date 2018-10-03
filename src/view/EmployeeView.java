@@ -51,9 +51,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         jobController = new JobController(sessionFactory);
         departmentController = new DepartmentController(sessionFactory);
         reset();
-        getSetCmbJob();
-        getSetCmbManager();
-        getSetCmbDepartment();
+        
     }
 
     /**
@@ -473,12 +471,15 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         txtEmail.setText("");
         txtPhoneNumber.setText("");
         dpHireDate.setDate(null);
-        cmbJobId.setSelectedItem(null);
+//        cmbJobId.setSelectedItem(null);
         txtSalary.setText("");
         txtCommissionPct.setText("");
-        cmbManager.setSelectedItem(null);
-        cmbDepartment.setSelectedItem(null);
+//        cmbManager.setSelectedItem(null);
+//        cmbDepartment.setSelectedItem(null);
         bindingEmployee((List<Employee>) controller.getAll());
+        getSetCmbJob();
+        getSetCmbManager();
+        getSetCmbDepartment();
         tblEmployee.setRowSorter(rowSorter);
         btnDrop.setEnabled(false);
     }

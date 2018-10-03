@@ -46,8 +46,6 @@ public class LocationController {
         return iDAO.search(Category, key);
     }
     
-    public List<Object> viewLocation() {
-        return iDAO.getAll();
-    }
+    
     
 }
