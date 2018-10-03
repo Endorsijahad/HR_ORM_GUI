@@ -85,7 +85,6 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        dpHireDate = new org.jdesktop.swingx.JXDatePicker();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -176,8 +175,7 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                     .addComponent(txtPhoneNumber)
                     .addComponent(txtEmail)
                     .addComponent(txtLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                    .addComponent(txtFirstName)
-                    .addComponent(dpHireDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtFirstName))
                 .addGap(54, 54, 54))
         );
         jPanel2Layout.setVerticalGroup(
@@ -204,10 +202,8 @@ public class EmployeeView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(dpHireDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jLabel6)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jLabel7.setText("Job");
@@ -219,6 +215,12 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         jLabel10.setText("Manager");
 
         jLabel11.setText("Department");
+
+        cmbJobId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbJobIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -420,6 +422,10 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCariActionPerformed
 
+    private void cmbJobIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJobIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbJobIdActionPerformed
+
     private void getSetCmbJob(){
         listJob = new Vector();
         List<Object> objects = jobController.getAll();
@@ -534,7 +540,6 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cmbDepartment;
     private javax.swing.JComboBox<String> cmbJobId;
     private javax.swing.JComboBox<String> cmbManager;
-    private org.jdesktop.swingx.JXDatePicker dpHireDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

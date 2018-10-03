@@ -212,7 +212,6 @@
                               <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtLastName" alignment="0" pref="152" max="32767" attributes="0"/>
                               <Component id="txtFirstName" alignment="0" max="32767" attributes="0"/>
-                              <Component id="dpHireDate" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       </Group>
@@ -247,11 +246,8 @@
                               <Component id="txtPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="dpHireDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="14" max="32767" attributes="0"/>
+                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="16" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -299,8 +295,6 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Last Name"/>
                   </Properties>
-                </Component>
-                <Component class="org.jdesktop.swingx.JXDatePicker" name="dpHireDate">
                 </Component>
               </SubComponents>
             </Container>
@@ -404,6 +398,9 @@
                       <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbJobIdActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>

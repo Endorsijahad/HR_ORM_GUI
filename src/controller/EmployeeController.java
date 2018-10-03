@@ -52,6 +52,6 @@ public class EmployeeController {
     
     public Object getNewId(){
         Employee employee =  (Employee) iDAO.getLastId();
-        return employee.getEmployeeId() + 1;
+        return employee.getEmployeeId() + 10;
     }
 }

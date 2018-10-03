@@ -6,10 +6,16 @@
 package view;
 
 import controller.DepartmentController;
+import controller.EmployeeController;
+import controller.LocationController;
 import daos.GeneralDAO;
 import entities.Department;
+import entities.Employee;
+import entities.Location;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.SessionFactory;
@@ -23,7 +29,13 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
 //    private final GeneralDAO gdao;
     private final DepartmentController controller;
+    private final EmployeeController empController;
+    private final LocationController locController;
     private String[] cmbItem = {"departmentId", "departmentName", "managerId", "locationId"};
+    
+    private Vector listManager;
+    private Vector listLocation;
+    private Vector listDepartment;
     /**
      * Creates new form DepartmentView
      */
@@ -32,6 +44,8 @@ public class DepartmentView extends javax.swing.JInternalFrame {
         //this.gdao = new GeneralDAO(HibernateUtil.getSessionFactory(), Department.class);
         controller = new DepartmentController(sessionFactory);
        // Object ambilSemua = controller.getAll();
+       empController = new EmployeeController(sessionFactory);
+       locController = new LocationController(sessionFactory);
     }
 
     /**
@@ -220,11 +234,11 @@ public class DepartmentView extends javax.swing.JInternalFrame {
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         // TODO add your handling code here:
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if(!txtSearch.getText().equalsIgnoreCase("")){
-                bindingDepartment(controller.search(cmbItem[cmbKategori.getSelectedIndex()], txtSearch.getText()));
-            }
-        }
+//        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+//            if(!txtSearch.getText().equalsIgnoreCase("")){
+//                bindingDepartment(controller.search(cmbItem[cmbKategori.getSelectedIndex()], txtSearch.getText()));
+//            }
+//        }
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void txtDepartmentIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDepartmentIdActionPerformed
@@ -237,42 +251,42 @@ public class DepartmentView extends javax.swing.JInternalFrame {
      */
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if(!txtDepartmentId.isEnabled()){
-            controller.saveOrUpdate(txtDepartmentId.getText(), cmbDepartmentName.getSelectedItem().toString(),
-                cmbManagerId.getSelectedItem().toString(), cmbLocationId.getSelectedItem().toString());
-        serbaGuna.tampilPesan(this, pesanUpdate, "Pesan Update");
-        bindingDepartment(controller.getAll());
-        reset();
-        }
-        else{
-            controller.saveOrUpdate(txtDepartmentId.getText(), cmbDepartmentName.getSelectedItem().toString(),
-                cmbManagerId.getSelectedItem().toString(), cmbLocationId.getSelectedItem().toString());
-        serbaGuna.tampilPesan(this, pesanSimpan, "Pesan Simpan");
-        bindingDepartment(controller.viewDepartment());
-        reset();
-        }
+//        if(!txtDepartmentId.isEnabled()){
+//            controller.saveOrUpdate(txtDepartmentId.getText(), cmbDepartmentName.getSelectedItem().toString(),
+//                cmbManagerId.getSelectedItem().toString(), cmbLocationId.getSelectedItem().toString());
+//        serbaGuna.tampilPesan(this, pesanUpdate, "Pesan Update");
+//        bindingDepartment(controller.getAll());
+//        reset();
+//        }
+//        else{
+//            controller.saveOrUpdate(txtDepartmentId.getText(), cmbDepartmentName.getSelectedItem().toString(),
+//                cmbManagerId.getSelectedItem().toString(), cmbLocationId.getSelectedItem().toString());
+//        serbaGuna.tampilPesan(this, pesanSimpan, "Pesan Simpan");
+//        bindingDepartment(controller.viewDepartment());
+//        reset();
+//        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        int messageBox = JOptionPane.showConfirmDialog(this, "Are You Sure ?", "Delete", JOptionPane.YES_NO_OPTION ,JOptionPane.WARNING_MESSAGE);
-        if(messageBox == JOptionPane.YES_OPTION){
-            String pesan = controller.hapusDepartment(txtDepartmentId.getText());
-        serbaGuna.tampilPesan(this, pesan, "Pesan Delete");
-        bindingDepartment(controller.viewDepartment());
-        reset();
-        }
+//        int messageBox = JOptionPane.showConfirmDialog(this, "Are You Sure ?", "Delete", JOptionPane.YES_NO_OPTION ,JOptionPane.WARNING_MESSAGE);
+//        if(messageBox == JOptionPane.YES_OPTION){
+//            String pesan = controller.hapusDepartment(txtDepartmentId.getText());
+//        serbaGuna.tampilPesan(this, pesan, "Pesan Delete");
+//        bindingDepartment(controller.viewDepartment());
+//        reset();
+//        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tblDepartmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDepartmentMouseClicked
         // TODO add your handling code here:
-        int row = tblDepartment.getSelectedRow();
-        txtDepartmentId.setText(tblDepartment.getValueAt(row, 1).toString());
-        cmbDepartmentName.setSelectedItem(tblDepartment.getValueAt(row, 2).toString());
-        if(tblDepartment.getValueAt(row, 3) == null) cmbManagerId.setSelectedItem(null);
-        else cmbManagerId.setSelectedItem(tblDepartment.getValueAt(row, 3).toString());
-        cmbLocationId.setSelectedItem(tblDepartment.getValueAt(row, 4).toString());
-        edit();
+//        int row = tblDepartment.getSelectedRow();
+//        txtDepartmentId.setText(tblDepartment.getValueAt(row, 1).toString());
+//        cmbDepartmentName.setSelectedItem(tblDepartment.getValueAt(row, 2).toString());
+//        if(tblDepartment.getValueAt(row, 3) == null) cmbManagerId.setSelectedItem(null);
+//        else cmbManagerId.setSelectedItem(tblDepartment.getValueAt(row, 3).toString());
+//        cmbLocationId.setSelectedItem(tblDepartment.getValueAt(row, 4).toString());
+//        edit();
     }//GEN-LAST:event_tblDepartmentMouseClicked
 
 
@@ -295,21 +309,63 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
-     private void bindingDepartment(List<Department> department) {
+     private void bindingDepartment(List<Object> department) {
+//        String[] header = {"No", "Department ID", "Department Name", "Manager Name", "City"};
+//        String[][] data = new String[department.size()][header.length];
+//        for (int i = 0; i < department.size(); i++) {
+//            Employee employee = department.get(i).getEmployee();
+//            data[i][0] = (i + 1) + "";
+//            data[i][1] = department.get(i).getDepartmentId() + "";
+//            data[i][2] = department.get(i).getDepartmentName() + "";
+//            if(employee!=null) data[i][3] = department.get(i).getEmployee().getEmployeeId() + " - " + department.get(i).getEmployee().getLastName()+ "";
+//            data[i][4] = department.get(i).getLocation().getLocation_id()+ " - " + department.get(i).getLocation().getCity() + "";
+//        }
+//        tblDepartment.setModel(new DefaultTableModel(data, header));
+//        reset();
+
         String[] header = {"No", "Department ID", "Department Name", "Manager Name", "City"};
         String[][] data = new String[department.size()][header.length];
-        for (int i = 0; i < department.size(); i++) {
-            Employee employee = department.get(i).getEmployee();
+        int i = 0;
+        for (Object object : department) {
+            Department dept = (Department) object;
+            Employee employee = dept.getManagerId();
             data[i][0] = (i + 1) + "";
-            data[i][1] = department.get(i).getDepartmentId() + "";
-            data[i][2] = department.get(i).getDepartmentName() + "";
-            if(employee!=null) data[i][3] = department.get(i).getEmployee().getEmployeeId() + " - " + department.get(i).getEmployee().getLastName()+ "";
-            data[i][4] = department.get(i).getLocation().getLocation_id()+ " - " + department.get(i).getLocation().getCity() + "";
+            data[i][1] = dept.getDepartmentId() + "";
+            data[i][2] = dept.getDepartmentName() + "";
+            if(employee!=null) data[i][3] = dept.getManagerId().getEmployeeId() + " - " + dept.getManagerId().getLastName()+ "";
+            data[i][4] = dept.getLocationId().getLocationId()+ " - " + dept.getLocationId().getCity() + "";
         }
         tblDepartment.setModel(new DefaultTableModel(data, header));
         reset();
     }
     
+     public void loadCmbDepartmentName(JComboBox cmb){
+        listDepartment = new Vector();
+        List<Object> objects = controller.getAll();
+        for (Object object : objects) {
+            Department department = (Department) object;
+            cmb.addItem(department.getDepartmentName());
+        }
+    }
+    
+    public  void loadCmbManagerId(JComboBox cmb){
+        listManager = new Vector();
+        List<Object> objects = (List<Object>) empController.getAll();
+        for (Object object : objects) {
+            Employee employee = (Employee) object;
+            cmb.addItem(employee.getEmployeeId() + " - " + employee.getLastName());
+        }
+    }
+    
+    public  void loadCmbLocationId(JComboBox cmb){
+//        listLocation = new Vector();
+//        List<Object> objects = locController.getLocationIdAndCity();
+//        for (Object object : objects) {
+//            Location location = (Location) object;
+//            cmb.addItem(location.getLocationId() + " - " + location.getCity());
+//        }
+    }
+     
     /**
      * Menyalakan tombol delete dan mematikan textfield Department Id
      */
@@ -323,7 +379,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
      * Department Id, mematikan tombol delete, mengembalikan seluruh combobox ke pilihan pertama
      */
     private void reset() {
-        txtDepartmentId.setText(ddao.autoId()+"");
+        txtDepartmentId.setText(controller.getNewId()+"");
         txtDepartmentId.setEnabled(true);
         btnDelete.setEnabled(false);
         txtDepartmentId.setEditable(false);
