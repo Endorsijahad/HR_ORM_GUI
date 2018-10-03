@@ -52,24 +52,24 @@ public class DepartmentController {
     }
     
     public  void loadCmbDepartmentName(JComboBox cmb){
-        List<Department> departments = iDAO.getAll();
-        for (Department department : departments) {
-            cmb.addItem(department.getDepartmentName());
-        }
+//        List<Department> departments = iDAO.getAll();
+//        for (Department department : departments) {
+//            cmb.addItem(department.getDepartmentName());
+//        }
     }
     
     public  void loadCmbManagerId(JComboBox cmb){
-        List<Employee> employees = iDAO.getIdManagerName();
-        for (Employee employee : employees) {
-            cmb.addItem(employee.getEmployeeId() + " - " + employee.getLastName());
-        }
+//        List<Employee> employees = iDAO.getIdManagerName();
+//        for (Employee employee : employees) {
+//            cmb.addItem(employee.getEmployeeId() + " - " + employee.getLastName());
+//        }
     }
     
     public  void loadCmbLocationId(JComboBox cmb){
-        List<Location> locations = iDAO.getLocationIdAndCity(0);
-        for (Location location : locations) {
-            cmb.addItem(location.getLocation_id() + " - " + location.getCity());
-        }
+//        List<Location> locations = iDAO.getLocationIdAndCity(0);
+//        for (Location location : locations) {
+//            cmb.addItem(location.getLocation_id() + " - " + location.getCity());
+//        }
     }
     
 }

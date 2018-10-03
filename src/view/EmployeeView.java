@@ -5,8 +5,10 @@
  */
 package view;
 
+import controller.DepartmentController;
 import controller.EmployeeController;
 import controller.JobController;
+import entities.Department;
 import entities.Employee;
 import entities.Job;
 import java.awt.event.KeyEvent;
@@ -33,8 +35,10 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private Object listCmb;
     private final EmployeeController controller;
     private final JobController jobController;
+    private final DepartmentController departmentController;
     private Vector listJob;
     private Vector listManager;
+    private Vector listDepartment;
 
     /**
      * Creates new form EmployeeViewSimple
@@ -45,9 +49,11 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         initComponents();
         controller = new EmployeeController(sessionFactory);
         jobController = new JobController(sessionFactory);
+        departmentController = new DepartmentController(sessionFactory);
         reset();
         getSetCmbJob();
         getSetCmbManager();
+        getSetCmbDepartment();
     }
 
     /**
@@ -416,10 +422,10 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
     private void getSetCmbJob(){
         listJob = new Vector();
-        List<Object> jobs = jobController.getAll();
-        for (Object job : jobs) {
-            Job jobb = (Job) job;
-            listJob.add(jobb.getJobTitle());
+        List<Object> objects = jobController.getAll();
+        for (Object object : objects) {
+            Job job = (Job) object;
+            listJob.add(job.getJobTitle());
         }
         Collections.sort(listJob);
         setCmb(listJob, cmbJobId);
@@ -435,7 +441,16 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         setCmb(listManager, cmbManager);
     }
     
-    
+    private void getSetCmbDepartment(){
+        listDepartment = new Vector();
+        List<Object> objects = (List<Object>) departmentController.getAll();
+        for (Object object : objects) {
+            Department department = (Department) object;
+            listDepartment.add(department.getDepartmentName());
+        }
+        Collections.sort(listDepartment);
+        setCmb(listDepartment, cmbDepartment);
+    }
     
     private void setCmb(Vector vector, JComboBox jcomboBox) {
         final DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
