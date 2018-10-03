@@ -6,9 +6,15 @@
 package view;
 
 import controller.EmployeeController;
+import controller.JobController;
 import entities.Employee;
+import entities.Job;
 import java.awt.event.KeyEvent;
+import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +32,9 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     private TableRowSorter<TableModel> rowSorter;
     private Object listCmb;
     private final EmployeeController controller;
+    private final JobController jobController;
+    private Vector listJob;
+    private Vector listManager;
 
     /**
      * Creates new form EmployeeViewSimple
@@ -35,7 +44,10 @@ public class EmployeeView extends javax.swing.JInternalFrame {
     public EmployeeView(SessionFactory sessionFactory) {
         initComponents();
         controller = new EmployeeController(sessionFactory);
+        jobController = new JobController(sessionFactory);
         reset();
+        getSetCmbJob();
+        getSetCmbManager();
     }
 
     /**
@@ -402,9 +414,35 @@ public class EmployeeView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCariActionPerformed
 
-    private void getCmbJob(){
-        
+    private void getSetCmbJob(){
+        listJob = new Vector();
+        List<Object> jobs = jobController.getAll();
+        for (Object job : jobs) {
+            Job jobb = (Job) job;
+            listJob.add(jobb.getJobTitle());
+        }
+        Collections.sort(listJob);
+        setCmb(listJob, cmbJobId);
     }
+    
+    private void getSetCmbManager(){
+        listManager = new Vector();
+        List<Employee> employees = (List<Employee>) controller.getAll();
+        for (Employee employee : employees) {
+            listManager.add(employee.getEmployeeId() + " - " + employee.getLastName());
+        }
+        Collections.sort(listManager);
+        setCmb(listManager, cmbManager);
+    }
+    
+    
+    
+    private void setCmb(Vector vector, JComboBox jcomboBox) {
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(vector);
+        jcomboBox.setModel(model);
+    }
+    
+    
     private void reset() {
         txtEmployeeId.setEnabled(true);
         txtEmployeeId.setEditable(false);
