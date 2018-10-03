@@ -5,17 +5,24 @@
  */
 package View;
 
+import controller.CountryController;
+import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionFactoryImpl;
+
 /**
  *
  * @author Lenovo
  */
 public class CountryView extends javax.swing.JInternalFrame {
 
+    private final CountryController controller;
+    
     /**
      * Creates new form CountryView
      */
-    public CountryView() {
+    public CountryView(SessionFactory sessionFactory) {
         initComponents();
+        controller = new CountryController(sessionFactory);
     }
 
     /**
@@ -110,10 +117,7 @@ public class CountryView extends javax.swing.JInternalFrame {
 
         tbCountry.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "No", "Country Id", "Country Name", "Region Id", "Region Name"
