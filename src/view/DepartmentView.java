@@ -340,7 +340,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     }
     
      public void loadCmbDepartmentName(JComboBox cmb){
-        listDepartment = new Vector();
+//        listDepartment = new Vector();
         List<Object> objects = controller.getAll();
         for (Object object : objects) {
             Department department = (Department) object;
@@ -349,7 +349,7 @@ public class DepartmentView extends javax.swing.JInternalFrame {
     }
     
     public  void loadCmbManagerId(JComboBox cmb){
-        listManager = new Vector();
+//        listManager = new Vector();
         List<Object> objects = (List<Object>) empController.getAll();
         for (Object object : objects) {
             Employee employee = (Employee) object;
