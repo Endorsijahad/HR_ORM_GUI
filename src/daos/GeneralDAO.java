@@ -36,7 +36,7 @@ public class GeneralDAO implements InterfaceDAO{
 
     @Override
     public List<Object> getAll() {
-        return (List<Object>) gdao.execute(4, null, type, null, null);
+        return (List<Object>) gdao.execute(5, null, type, null, null);
     }
 
     @Override

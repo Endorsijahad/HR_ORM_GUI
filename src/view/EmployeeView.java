@@ -6,10 +6,15 @@
 package view;
 
 
+import controller.EmployeeController;
 import entities.Employee;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import org.hibernate.SessionFactory;
 //import model.Employee;
 
 /**
@@ -20,13 +25,15 @@ public class EmployeeView extends javax.swing.JInternalFrame {
 
     private TableRowSorter<TableModel>  rowSorter;
     private Object listCmb;
-
+    private final EmployeeController controller;
     /**
      * Creates new form EmployeeViewSimple
+     * @param sessionFactory
      */
-    public EmployeeView() {
+    public EmployeeView(SessionFactory sessionFactory) {
         initComponents();
-        
+        controller = new EmployeeController(sessionFactory);
+        bindingEmployee((List<Employee>) controller.getAll());
     }
 
     /**
@@ -384,7 +391,39 @@ public class EmployeeView extends javax.swing.JInternalFrame {
      * @param employees 
      */
     private void bindingEmployee(List<Employee> employees) {
-       
+       String[] header = {"No", "Employee ID", "First Name", "Last Name", "Email", "Phone Number", "Hire Date", "Job",
+            "Salary", "Commission PCT", "Manager", "Department"};
+        String[][] data = new String[employees.size()][header.length];
+        for (int i = 0; i < employees.size(); i++) {
+            data[i][0] = (i + 1) + "";
+            data[i][1] = employees.get(i).getEmployeeId() + "";
+            data[i][2] = employees.get(i).getFirstName();
+            data[i][3] = employees.get(i).getLastName();
+            data[i][4] = employees.get(i).getEmail();
+            data[i][5] = employees.get(i).getPhoneNumber() + "";
+            data[i][6] = employees.get(i).getHireDate().toString();
+            data[i][7] = employees.get(i).getJobId().getJobId();
+            data[i][8] = employees.get(i).getSalary() + "";
+            data[i][9] = employees.get(i).getCommissionPct() + "";
+            data[i][10] = employees.get(i).getManagerId().getEmployeeId() + "-" + employees.get(i).getManagerId().getLastName();
+            data[i][11] = employees.get(i).getDepartmentId().getDepartmentName();
+
+        }
+        tblEmployee.setModel(new DefaultTableModel(data, header));
+        this.rowSorter = new TableRowSorter<>(tblEmployee.getModel());
+        tblEmployee.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tblEmployee.getColumnModel().getColumn(1).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(2).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(3).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(4).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(5).setPreferredWidth(120);
+        tblEmployee.getColumnModel().getColumn(6).setPreferredWidth(70);
+        tblEmployee.getColumnModel().getColumn(7).setPreferredWidth(200);
+        tblEmployee.getColumnModel().getColumn(8).setPreferredWidth(80);
+        tblEmployee.getColumnModel().getColumn(9).setPreferredWidth(100);
+        tblEmployee.getColumnModel().getColumn(10).setPreferredWidth(80);
+        tblEmployee.getColumnModel().getColumn(11).setPreferredWidth(120);
+        tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDrop;
