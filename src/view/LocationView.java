@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.CountryController;
 import controller.LocationController;
 import entities.Location;
 import java.util.List;
@@ -15,19 +16,20 @@ import org.hibernate.SessionFactory;
  *
  * @author USER
  */
-public class LocationView extends javax.swing.JInternalFrame {
+public final class LocationView extends javax.swing.JInternalFrame {
 
     private final LocationController locationController;
+    private final CountryController countryController;
 
+    
     /**
      * Creates new form LocationView
      * @param sessionFactory
      */
     public LocationView(SessionFactory sessionFactory) {
         initComponents();
-//        this.gDAO = new GeneralDAO(HibernateUtil.getSessionFactory(), Region.class);
         locationController = new LocationController(sessionFactory);
-        bindingLocation((List<Object>) locationController.getAll());
+        countryController = new CountryController(sessionFactory);
         reset();
     }
 
@@ -51,20 +53,24 @@ public class LocationView extends javax.swing.JInternalFrame {
         txtCountryName.setEnabled(false);
         btnDrop.setEnabled(false);
         btnSave.setEnabled(true);
+        bindingLocation((List<Object>) locationController.getAll());
 
     }
 
     private void bindingLocation(List<Object> location) {
         String[] header = {"No", "Location ID", "Street Address", "Postal_Code", "City", "State Province", "Country Name"};
         String[][] data = new String[location.size()][header.length];
-        for (int i = 0; i < location.size(); i++) {
+        int i = 0;
+        for (Object object : location) {
+            Location location1 = (Location) object;
             data[i][0] = (i + 1) + "";
-            data[i][1] = location.get(i).getLocationId() + "";
-            data[i][2] = location.get(i).getStreetAddress() + "";
-            data[i][3] = location.get(i).getPostalCode() + "";
-            data[i][4] = location.get(i).getCity() + "";
-            data[i][5] = location.get(i).getStateProvince() + "";
-            data[i][6] = location.get(i).getCountryId().getCountryName();
+            data[i][1] = location1.getLocationId() + "";
+            data[i][2] = location1.getStreetAddress() + "";
+            data[i][3] = location1.getPostalCode() + "";
+            data[i][4] = location1.getCity() + "";
+            data[i][5] = location1.getStateProvince() + "";
+            data[i][6] = location1.getCountryId().getCountryName();
+            i++;
         }
         tblLocation.setModel(new DefaultTableModel(data, header));
         reset();
@@ -144,6 +150,11 @@ public class LocationView extends javax.swing.JInternalFrame {
         });
 
         btnSave.setText("SAVE");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnDrop.setBackground(new java.awt.Color(255, 51, 51));
         btnDrop.setText("DROP");
@@ -359,6 +370,10 @@ public class LocationView extends javax.swing.JInternalFrame {
         cmbKategoriLocation.setSelectedItem(tblLocation.getValueAt(row, 6).toString());
     }//GEN-LAST:event_tblLocationMouseClicked
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDrop;
@@ -392,5 +407,15 @@ public class LocationView extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea txtStreetAddress;
     // End of variables declaration//GEN-END:variables
 
+//    private void getSetCmbCountry(){
+//        Vector listCount = new Vector();
+//        List<Object> objects = countryController.getAll();
+//        for (Object object : objects) {
+//            Country country = (Country) object;
+//            listCount.add(country.getCountryId());
+//        }
+//        Collections.sort(listCount  );
+//        set(listCount, cmbKategoriLocation);
+//    }
     
 }

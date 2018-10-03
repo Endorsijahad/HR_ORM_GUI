@@ -5,6 +5,7 @@
  */
 package daos;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -26,6 +27,7 @@ public class FunctionDAO {
      *
      * @param CRUD - 0 for Save/Update, 1 for delete, 2 for getById, 3 for
      * search, 4 for getLastId, selain 0-4 for getAll
+     * @param object
      * @param type
      * @param category
      * @param key
@@ -39,7 +41,7 @@ public class FunctionDAO {
             this.transaction = session.beginTransaction();
             obj = this.getAction(session, CRUD, object, type, category, key);
             this.transaction.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
