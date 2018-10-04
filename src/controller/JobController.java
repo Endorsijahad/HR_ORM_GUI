@@ -24,6 +24,14 @@ public class JobController {
         this.idao = new GeneralDAO(sessionFactory, Job.class);
     }
     
+    /**
+     * Fungsi untuk menyimpan/update data
+     * @param jobId - jobId
+     * @param jobTitle - nama job
+     * @param minSalary - mininal salary
+     * @param MaxSalary - maximal salary
+     * @return mengembalikan nilai boolean apakah proses save/update berhasil dilakukan
+     */
     public boolean saveOrUpdate(String jobId, String jobTitle, String minSalary, String MaxSalary){
         Job job = new Job(jobId, jobTitle, new Integer(minSalary), new Integer(MaxSalary));
         return idao.saveOrUpdate(job);
