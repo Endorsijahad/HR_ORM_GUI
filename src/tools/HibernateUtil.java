@@ -29,7 +29,7 @@ public class HibernateUtil {
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
+    //cobac
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
